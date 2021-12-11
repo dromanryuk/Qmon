@@ -13,7 +13,7 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun BottomInfoPanel(
-    navigateToQuestionScreen: () -> Unit,
+    navigateToInstructionScreen: () -> Unit,
     navigateToLegalScreen: () -> Unit,
 ) {
     Row(
@@ -23,7 +23,7 @@ fun BottomInfoPanel(
     ) {
         Text(
             modifier = Modifier.clickable {
-                navigateToQuestionScreen()
+                navigateToInstructionScreen()
             },
             text = "Инструкция",
             style = MaterialTheme.typography.body2,

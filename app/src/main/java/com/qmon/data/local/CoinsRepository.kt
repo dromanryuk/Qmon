@@ -1,51 +1,31 @@
 package com.qmon.data.local
 
+import android.annotation.SuppressLint
 import android.content.SharedPreferences
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.withContext
 
 
 class CoinsRepository(
-    private val sharedPreferences: SharedPreferences,
+    private val prefs: SharedPreferences,
 ) {
+    private val _coins = MutableStateFlow(getCoins())
+    val coins = _coins.asStateFlow()
 
-    private val _coins = MutableStateFlow(0)
-    val coins = _coins as StateFlow<Int>
+    private fun getCoins() = prefs.getInt(COINS_KEY, 0)
 
-    init {
-        getCoins()
+    @SuppressLint("ApplySharedPref")
+    suspend fun increaseCoins(count: Int = 1): Unit = withContext(Dispatchers.IO) {
+        _coins.value += count
+        prefs.edit().run {
+            putInt(COINS_KEY, _coins.value)
+            commit()
+        }
     }
 
-    fun getCoins() {
-        _coins.value = sharedPreferences.getInt("coinsCount", 0)
+    companion object {
+        private const val COINS_KEY = "coins"
     }
-
-    fun getCoin(): Int {
-        getCoins()
-        return _coins.value
-    }
-
-//    fun putPreferences(sharedPreferences: SharedPreferences, coins: Int) {
-//        val editor = sharedPreferences.edit()
-//        val coinsCount = sharedPreferences.getInt("coinsCount", 0)
-//        editor.putInt("coinsCount", coinsCount + coins)
-//        editor.apply()
-//    }
-
-    fun increaseCoinsCount(sharedPreferences: SharedPreferences) {
-        val editor = sharedPreferences.edit()
-        val coinsCount = sharedPreferences.getInt("coinsCount", 0)
-        editor.putInt("coinsCount", coinsCount + 1)
-        editor.apply()
-        getCoins()
-    }
-
-    fun increaseCoinsCountBy(sharedPreferences: SharedPreferences, count: Int) {
-        val editor = sharedPreferences.edit()
-        val coinsCount = sharedPreferences.getInt("coinsCount", 0)
-        editor.putInt("coinsCount", coinsCount + count)
-        editor.apply()
-        getCoins()
-    }
-
 }

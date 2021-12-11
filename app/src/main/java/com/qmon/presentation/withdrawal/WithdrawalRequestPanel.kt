@@ -11,17 +11,17 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.qmon.R
 
 @Composable
-fun WithdrawalRequestPanel(coins: Int = 0) {
+fun WithdrawalRequestPanel(coins: Int) {
     val gradient = Brush.verticalGradient(listOf(Color(0xff005bff), Color(0xff002dd0)))
     Card(
         modifier = Modifier
@@ -57,7 +57,6 @@ fun WithdrawalRequestPanel(coins: Int = 0) {
             Spacer(modifier = Modifier.height(5.dp))
             Image(
                 painterResource(id = R.drawable.logos),
-                //modifier = Modifier.size(200.dp, 100.dp),
                 modifier = Modifier
                     .padding(start = 10.dp, end = 10.dp, bottom = 15.dp),
                 contentDescription = "app logo",
@@ -70,8 +69,7 @@ fun WithdrawalRequestPanel(coins: Int = 0) {
 fun WithdrawalButton(gradient: Brush) {
     Button(
         onClick = { },
-        modifier = Modifier
-            .padding(10.dp),
+        modifier = Modifier.padding(10.dp),
         contentPadding = PaddingValues(0.dp)
     ) {
         Row(
@@ -89,7 +87,8 @@ fun WithdrawalButton(gradient: Brush) {
                 style = MaterialTheme.typography.h6,
                 color = Color.White,
                 fontSize = 18.sp,
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
+                fontWeight = FontWeight.Bold
             )
         }
     }

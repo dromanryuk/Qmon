@@ -1,17 +1,18 @@
 package com.qmon
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.gestures.LocalOverScrollConfiguration
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.qmon.domain.model.Question
-import com.qmon.domain.util.readJsonFile
+import androidx.navigation.navOptions
+import com.qmon.presentation.components.DefaultScaffold
 import com.qmon.presentation.components.InternetConnectionDialog
 import com.qmon.presentation.daily_bonus.DailyBonusScreen
 import com.qmon.presentation.instruction.InstructionScreen
@@ -20,83 +21,56 @@ import com.qmon.presentation.question.QuestionScreen
 import com.qmon.presentation.util.Screen
 import com.qmon.presentation.withdrawal.WithdrawalScreen
 import com.qmon.ui.theme.QmonTheme
-import kotlinx.coroutines.FlowPreview
 
 class MainActivity : ComponentActivity() {
-    @FlowPreview
+    @OptIn(ExperimentalFoundationApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        val sharedPreferences = getSharedPreferences("Coins", Context.MODE_PRIVATE)
-
         setContent {
             val navController = rememberNavController()
-
-//            val coinsCount = remember {
-//                mutableStateOf(
-//                    sharedPreferences.getInt("coinsCount", 0)
-//                )
-//            }
-//            println("000000000000000000000000000000000000000000 ${coinsCount.value}")
-
-
-            val inputStream = assets.open("q.json").bufferedReader()
-            val questions = readJsonFile(inputStream)
-
             QmonTheme {
+                DefaultScaffold(
+                    navigateToInstructionScreen = {
+                        navController.navigate(
+                            Screen.Instruction.route,
+                            navOptions { launchSingleTop = true }
+                        )
+                    }
+                ) {
+                    CompositionLocalProvider(LocalOverScrollConfiguration provides null) {
+                        NavGraph(navController)
+                    }
+                }
                 InternetConnectionDialog()
             }
-            NavGraph(navController, questions, sharedPreferences)
         }
-
     }
-}
 
-@Composable
-fun NavGraph(
-    navController: NavHostController,
-    questions: List<Question>,
-    sharedPreferences: SharedPreferences
-) {
-    NavHost(
-        navController = navController,
-        startDestination = Screen.Overview.route
-    ) {
-        composable(Screen.Overview.route) {
-            OverviewScreen(
-                navigateToInstructionScreen = { navController.navigate(Screen.Instruction.route) },
-                navigateToQuestionScreen = { navController.navigate(Screen.Question.route) },
-                navigateToDailyBonusScreen = { navController.navigate(Screen.DailyBonus.route) },
-                navigateToWithdrawalScreen = { navController.navigate(Screen.Withdrawal.route) },
-                navigateToLegalInfoScreen = { navController.navigate(Screen.LegalInfo.route) },
-            )
-        }
-        composable(Screen.Instruction.route) {
-            InstructionScreen(
-                navigateToInstructionScreen = { navController.navigate(Screen.Instruction.route) },
-                navigateToLegalInfoScreen = { navController.navigate(Screen.LegalInfo.route) }
-            )
-        }
-        composable(Screen.DailyBonus.route) {
-            DailyBonusScreen(
-                navigateToInstructionScreen = { navController.navigate(Screen.Instruction.route) },
-                navigateToLegalInfoScreen = { navController.navigate(Screen.LegalInfo.route) },
-                sharedPreferences
-            )
-        }
-        composable(Screen.Withdrawal.route) {
-            WithdrawalScreen(
-                navigateToInstructionScreen = { navController.navigate(Screen.Instruction.route) },
-                navigateToLegalInfoScreen = { navController.navigate(Screen.LegalInfo.route) }
-            )
-        }
-        composable(Screen.Question.route) {
-            QuestionScreen(
-                questions = questions,
-                navigateToInstructionScreen = { navController.navigate(Screen.Instruction.route) },
-                navigateToLegalInfoScreen = { navController.navigate(Screen.LegalInfo.route) },
-                sharedPreferences
-            )
+    @Composable
+    fun NavGraph(navController: NavHostController) {
+        NavHost(
+            navController = navController,
+            startDestination = Screen.Overview.route
+        ) {
+            composable(Screen.Overview.route) {
+                OverviewScreen(
+                    navigateToQuestionScreen = { navController.navigate(Screen.Question.route) },
+                    navigateToDailyBonusScreen = { navController.navigate(Screen.DailyBonus.route) },
+                    navigateToWithdrawalScreen = { navController.navigate(Screen.Withdrawal.route) },
+                )
+            }
+            composable(Screen.Instruction.route) {
+                InstructionScreen()
+            }
+            composable(Screen.DailyBonus.route) {
+                DailyBonusScreen()
+            }
+            composable(Screen.Withdrawal.route) {
+                WithdrawalScreen()
+            }
+            composable(Screen.Question.route) {
+                QuestionScreen()
+            }
         }
     }
 }

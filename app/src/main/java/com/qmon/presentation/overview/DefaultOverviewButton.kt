@@ -9,6 +9,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 
@@ -29,7 +30,8 @@ fun DefaultOverviewButton(
             text = text,
             style = MaterialTheme.typography.h5,
             textAlign = TextAlign.Center,
-            modifier = Modifier.padding(10.dp)
+            modifier = Modifier.padding(10.dp),
+            fontWeight = FontWeight.Bold
         )
     }
 }

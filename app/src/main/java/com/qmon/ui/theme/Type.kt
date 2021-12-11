@@ -8,40 +8,27 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.qmon.R
 
-private val fonts = FontFamily(
+private val AtypFontFamily = FontFamily(
     Font(R.font.atyp_bold, weight = FontWeight.Bold),
     Font(R.font.atyp_medium, weight = FontWeight.Medium),
     Font(R.font.atyp_thin, weight = FontWeight.Thin),
 )
 
-// Set of Material typography styles to start with
 val Typography = Typography(
+    defaultFontFamily = AtypFontFamily,
     body1 = TextStyle(
-        fontFamily = fonts,
+        fontFamily = AtypFontFamily,
         fontWeight = FontWeight.Thin,
-        fontSize = 10.sp
+        fontSize = 16.sp
     ),
     h1 = TextStyle(
-        fontFamily = fonts,
+        fontFamily = AtypFontFamily,
         fontWeight = FontWeight.Bold,
         fontSize = 10.sp
     ),
     h2 = TextStyle(
-        fontFamily = fonts,
+        fontFamily = AtypFontFamily,
         fontWeight = FontWeight.Medium,
         fontSize = 10.sp
-    ),
-
-    /* Other default text styles to override
-    button = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.W500,
-        fontSize = 14.sp
-    ),
-    caption = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Normal,
-        fontSize = 12.sp
     )
-    */
 )
