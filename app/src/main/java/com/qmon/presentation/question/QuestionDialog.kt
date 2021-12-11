@@ -35,7 +35,8 @@ private fun QuestionDialogContent(
     Card {
         Column(
             modifier = Modifier
-                .padding(20.dp),
+                .fillMaxWidth()
+                .padding(8.dp),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
@@ -58,13 +59,11 @@ private fun QuestionDialogContent(
             )
             Spacer(modifier = Modifier.height(15.dp))
             Row(
-                horizontalArrangement = Arrangement.SpaceBetween,
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 Button(
-                    modifier = Modifier
-                        .padding(end = 5.dp)
-                        .height(45.dp),
+                    modifier = Modifier.height(55.dp),
                     onClick = onConfirmAnswer,
                     colors = ButtonDefaults.buttonColors(
                         backgroundColor = Color(0xff0046d0),
@@ -74,9 +73,7 @@ private fun QuestionDialogContent(
                     Text("Подтверждаю", fontWeight = FontWeight.Bold)
                 }
                 Button(
-                    modifier = Modifier
-                        .padding(start = 10.dp)
-                        .height(45.dp),
+                    modifier = Modifier.height(55.dp),
                     onClick = onChangeAnswer,
                     colors = ButtonDefaults.buttonColors(
                         backgroundColor = Color(0xffb1b1b1),
@@ -85,8 +82,8 @@ private fun QuestionDialogContent(
                 ) {
                     Text(
                         "Поменять\nответ",
-                        fontSize = 12.sp,
-                        textAlign = TextAlign.Center
+                        textAlign = TextAlign.Center,
+                        fontSize = 12.sp
                     )
                 }
             }

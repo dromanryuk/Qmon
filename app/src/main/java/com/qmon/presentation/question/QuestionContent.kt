@@ -1,6 +1,9 @@
 package com.qmon.presentation.question
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.MaterialTheme
@@ -31,7 +34,6 @@ fun QuestionContent(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text(
-            modifier = Modifier.height(90.dp),
             text = question.question,
             style = MaterialTheme.typography.h5,
             color = Color.Black,

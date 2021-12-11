@@ -2,7 +2,7 @@ plugins {
     id("com.android.application")
     kotlin("android")
     id("kotlin-android-extensions")
-    id("kotlinx-serialization")
+    kotlin("plugin.serialization")
 }
 
 val composeVersion = "1.1.0-beta03"
