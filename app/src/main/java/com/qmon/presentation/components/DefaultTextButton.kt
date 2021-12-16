@@ -1,4 +1,4 @@
-package com.qmon.presentation.overview
+package com.qmon.presentation.components
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -14,17 +14,18 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun DefaultOverviewButton(
-    navigateToScreen: () -> Unit,
-    color: Color,
-    text: String
+fun DefaultTextButton(
+    text: String,
+    onClick: () -> Unit,
+    color: Color
 ) {
     Button(
-        onClick = { navigateToScreen() },
+        onClick = onClick,
         modifier = Modifier.fillMaxWidth(),
         colors = ButtonDefaults.buttonColors(
             backgroundColor = color,
-            contentColor = Color.White)
+            contentColor = Color.White
+        )
     ) {
         Text(
             text = text,
@@ -34,4 +35,9 @@ fun DefaultOverviewButton(
             fontWeight = FontWeight.Bold
         )
     }
+}
+
+enum class ButtonColor(val color: Color) {
+    GREEN(Color(0xff00ae5d)),
+    BLUE(Color(0xff0046d0))
 }

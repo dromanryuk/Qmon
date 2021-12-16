@@ -18,6 +18,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.qmon.R
+import com.qmon.presentation.components.DefaultTextButton
 
 @Composable
 fun OverviewContent(
@@ -44,20 +45,20 @@ fun OverviewContent(
             textAlign = TextAlign.Center,
             fontWeight = FontWeight.Medium
         )
-        DefaultOverviewButton(
+        DefaultTextButton(
+            "Проходить опросы и зарабатывать",
             navigateToQuestionScreen,
-            Color(0xff00ae5d),
-            "Проходить опросы и зарабатывать"
+            Color(0xff00ae5d)
         )
-        DefaultOverviewButton(
+        DefaultTextButton(
+            "Ежедневный бонус",
             navigateToDailyBonusScreen,
-            Color(0xff0046d0),
-            "Ежедневный бонус"
+            Color(0xff0046d0)
         )
-        DefaultOverviewButton(
+        DefaultTextButton(
+            "Вывод средств",
             navigateToWithdrawalScreen,
-            Color(0xff0046d0),
-            "Вывод средств"
+            Color(0xff0046d0)
         )
     }
 }

@@ -17,6 +17,7 @@ import com.qmon.qmonApp
 @Composable
 fun DefaultScaffold(
     navigateToInstructionScreen: () -> Unit,
+    navigateToLegalInfoScreen: () -> Unit,
     content: @Composable () -> Unit
 ) {
     val coins by qmonApp.coinsRepository.coins.collectAsState()
@@ -41,7 +42,7 @@ fun DefaultScaffold(
             }
             BottomInfoPanel(
                 navigateToInstructionScreen = navigateToInstructionScreen,
-                navigateToLegalScreen = {}
+                navigateToLegalScreen = navigateToLegalInfoScreen
             )
         }
     }

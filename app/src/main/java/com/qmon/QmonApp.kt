@@ -4,10 +4,7 @@ import android.app.Application
 import android.content.Context
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
-import com.qmon.data.local.CoinsRepository
-import com.qmon.data.local.DailyRewardRepository
-import com.qmon.data.local.InternetRepository
-import com.qmon.data.local.QuestionRepository
+import com.qmon.data.local.*
 import kotlin.properties.Delegates
 
 class QmonApp : Application() {
@@ -19,6 +16,8 @@ class QmonApp : Application() {
         private set
     var dailyRewardRepository: DailyRewardRepository by Delegates.notNull()
         private set
+    var legalInfoRepository: LegalInfoRepository by Delegates.notNull()
+        private set
 
     override fun onCreate() {
         super.onCreate()
@@ -27,6 +26,7 @@ class QmonApp : Application() {
         coinsRepository = CoinsRepository(sharedPreferences)
         internetRepository = InternetRepository(applicationContext)
         dailyRewardRepository = DailyRewardRepository(sharedPreferences, coinsRepository)
+        legalInfoRepository = LegalInfoRepository(applicationContext, sharedPreferences)
     }
 }
 
