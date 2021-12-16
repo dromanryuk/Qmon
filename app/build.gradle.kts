@@ -66,4 +66,8 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:2.4.0-beta02")
 
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.1")
+
+    implementation("com.appodeal.ads:sdk:2.10.3.+") {
+        exclude(group = "com.appodeal.ads.sdk.networks", module = "admob")
+    }
 }

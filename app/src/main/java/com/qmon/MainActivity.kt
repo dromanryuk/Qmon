@@ -26,6 +26,12 @@ class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalFoundationApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setScreenContent()
+        initializeAppodeal()
+    }
+
+    @OptIn(ExperimentalFoundationApi::class)
+    private fun setScreenContent() {
         setContent {
             val navController = rememberNavController()
             QmonTheme {

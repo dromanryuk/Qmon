@@ -49,6 +49,6 @@ class QuestionRepository(
 
         private const val QUESTION_INDEX_KEY = "questionIndex"
 
-        private const val AD_QUESTION_PERIOD = 3
+        private const val AD_QUESTION_PERIOD = 2
     }
 }
