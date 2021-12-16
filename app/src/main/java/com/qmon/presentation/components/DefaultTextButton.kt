@@ -11,13 +11,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 @Composable
 fun DefaultTextButton(
     text: String,
     onClick: () -> Unit,
-    color: Color
+    color: Color,
+    padding: Dp = 10.dp
 ) {
     Button(
         onClick = onClick,
@@ -31,7 +33,7 @@ fun DefaultTextButton(
             text = text,
             style = MaterialTheme.typography.h5,
             textAlign = TextAlign.Center,
-            modifier = Modifier.padding(10.dp),
+            modifier = Modifier.padding(padding),
             fontWeight = FontWeight.Bold
         )
     }

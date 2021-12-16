@@ -8,7 +8,7 @@ import androidx.compose.material.Button
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -16,9 +16,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
 import com.qmon.R
+import com.qmon.presentation.components.ButtonColor
+import com.qmon.presentation.components.DefaultTextButton
+import com.qmon.ui.theme.QmonTheme
 
 @Composable
 fun WithdrawalRequestPanel(coins: Int) {
@@ -67,8 +72,9 @@ fun WithdrawalRequestPanel(coins: Int) {
 
 @Composable
 fun WithdrawalButton(gradient: Brush) {
+    var showDialog by remember { mutableStateOf(false) }
     Button(
-        onClick = { },
+        onClick = { showDialog = true },
         modifier = Modifier.padding(10.dp),
         contentPadding = PaddingValues(0.dp)
     ) {
@@ -91,5 +97,44 @@ fun WithdrawalButton(gradient: Brush) {
                 fontWeight = FontWeight.Bold
             )
         }
+    }
+    if (showDialog)
+        Dialog(onDismissRequest = { showDialog = false }) {
+            NotEnoughCoinsDialogContent(onDismiss = {showDialog = false})
+        }
+}
+
+@Composable
+private fun NotEnoughCoinsDialogContent(onDismiss: () -> Unit) {
+    Card {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(32.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            Text(
+                text = "Ваш баланс недостаточен для вывода",
+                style = MaterialTheme.typography.h6,
+                textAlign = TextAlign.Center,
+                fontSize = 24.sp,
+                fontWeight = FontWeight.Bold
+            )
+            DefaultTextButton(
+                text = "ОК",
+                onClick = onDismiss,
+                color = ButtonColor.BLUE.color,
+                padding = 0.dp
+            )
+        }
+    }
+}
+
+@Preview
+@Composable
+private fun NotEnoughCoinsDialogContentPreview() {
+    QmonTheme {
+        NotEnoughCoinsDialogContent({})
     }
 }
